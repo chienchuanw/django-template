@@ -16,3 +16,7 @@ migrate:
 
 superuser:
 	poetry run python manage.py createsuperuser
+
+styles:
+	npx tailwindcss -i ./src/styles/input.css -o ./static/styles/output.css --watch
+

@@ -9,3 +9,8 @@
 
 # Django
 *.sqlite3
+static/scripts/output.js
+static/styles/output.css
+
+# Frontend
+node_modules/
