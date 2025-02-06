@@ -15,10 +15,6 @@
     <div class="space-y-1">
       <label htmlFor="email" class="block text-lg font-medium"> Email </label>
       <div class="relative">
-        <span
-          class="material-symbols-outlined absolute left-3 top-2 text-blue-300"
-          >mail</span
-        >
         <input
           id="email"
           type="email"
@@ -32,10 +28,6 @@
         Password
       </label>
       <div class="relative">
-        <span
-          class="material-symbols-outlined absolute left-3 top-2 text-blue-300"
-          >lock</span
-        >
         <input
           id="password"
           type="password"
@@ -73,7 +65,7 @@
     >
       <img
         src="https://img.icons8.com/color/48/000000/line-me.png"
-        alt="Google"
+        alt="Line"
         class="w-[24px] h-[24px] mr-2 object-cover"
       />
       Sign in with LINE
@@ -83,7 +75,7 @@
     </a>
     <p class="text-sm mt-4">
       Don't have an account?
-      <a href="#" class="text-blue-600 hover:underline"> Create one </a>
+      <a href="{% url "accounts:register" %}" class="text-blue-600 hover:underline"> Create one </a>
     </p>
   </div>
 </div>

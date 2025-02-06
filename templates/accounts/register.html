@@ -1,0 +1,138 @@
+{% extends "shared/base.html" %} 
+{% load socialaccount %} 
+
+{% block title%}Register{% endblock title %} 
+
+{% block content %}
+
+<div
+  class="w-[400px] min-h-[700px] mx-auto bg-gradient-to-r from-neutral-50 to-neutral-100 shadow-lg rounded-lg p-8 hover:shadow-2xl transition-shadow duration-300 ease-in-out transform"
+>
+  <h1
+    class="text-4xl font-title text-center text-blue-600 mb-6 tracking-wide"
+  >
+    Register
+  </h1>
+  <form class="space-y-6">
+    <div class="space-y-1">
+      <label htmlFor="fullname" class="block text-lg font-medium">
+        Full Name
+      </label>
+      <div
+        class="relative flex items-center border border-blue-300 bg-white rounded-md focus-within:ring-4 focus-within:ring-blue-300/50 focus-within:border-blue-500 transition-all duration-300"
+      >
+        <input
+          id="fullname"
+          type="text"
+          class="w-full py-3 px-3 focus:outline-none focus:ring-0 focus:border-none rounded-md"
+          placeholder="Your full name"
+        />
+      </div>
+    </div>
+    <div class="space-y-1">
+      <label htmlFor="email" class="block text-lg font-medium">
+        Email
+      </label>
+      <div
+        class="relative flex items-center border border-blue-300 bg-white rounded-md focus-within:ring-4 focus-within:ring-blue-300/50 focus-within:border-blue-500 transition-all duration-300"
+      >
+        <input
+          id="email"
+          type="email"
+          class="w-full py-3 px-3 focus:outline-none focus:ring-0 focus:border-none rounded-md"
+          placeholder="Your email"
+        />
+      </div>
+    </div>
+    <div class="space-y-1">
+      <label htmlFor="password" class="block text-lg font-medium">
+        Password
+      </label>
+      <div
+        class="relative flex items-center border border-blue-300 bg-white rounded-md focus-within:ring-4 focus-within:ring-blue-300/50 focus-within:border-blue-500 transition-all duration-300"
+      >
+        <input
+          id="password"
+          type="password"
+          class="w-full py-3 px-3 focus:outline-none focus:ring-0 focus:border-none rounded-md"
+          placeholder="Create password"
+        />
+      </div>
+    </div>
+    <div class="space-y-1">
+      <label htmlFor="confirm-password" class="block text-lg font-medium">
+        Confirm Password
+      </label>
+      <div
+        class="relative flex items-center border border-blue-300 bg-white rounded-md focus-within:ring-4 focus-within:ring-blue-300/50 focus-within:border-blue-500 transition-all duration-300"
+      >
+        <input
+          id="confirm-password"
+          type="password"
+          class="w-full py-3 px-3 focus:outline-none focus:ring-0 focus:border-none rounded-md"
+          placeholder="Confirm password"
+        />
+      </div>
+    </div>
+    <div class="flex items-center space-x-2">
+      <input
+        type="checkbox"
+        id="terms"
+        class="w-4 h-4 rounded border-blue-300 text-blue-600 focus:ring-blue-500"
+      />
+      <label htmlFor="terms" class="text-sm">
+        I agree to the Terms of Service and Privacy Policy
+      </label>
+    </div>
+    <button
+      type="submit"
+      class="w-full px-4 py-3 bg-blue-700 text-neutral-50 rounded-full hover:bg-blue-600 focus:bg-blue-800 transition-transform transform hover:scale-105 duration-300"
+    >
+      Create Account
+    </button>
+  </form>
+
+  <div class="mt-6 text-center space-y-4">
+    <div class="relative">
+      <div class="absolute inset-0 flex items-center">
+        <div class="w-full border-t border-neutral-300"></div>
+      </div>
+      <div class="relative flex justify-center text-sm">
+        <span
+          class="px-2 bg-gradient-to-r from-neutral-50 to-neutral-100 text-neutral-500"
+        >
+          Or continue with
+        </span>
+      </div>
+    </div>
+
+    <a
+			href="{% provider_login_url 'google' %}"
+      class="w-full py-3 border border-neutral-400 rounded-full flex items-center justify-center hover:bg-neutral-50 focus:bg-blue-100 transition-transform transform hover:scale-105 duration-300"
+    >
+      <img
+        src="https://img.icons8.com/color/48/000000/google-logo.png"
+        alt="Google"
+        class="w-[24px] h-[24px] mr-2 object-cover"
+      />
+      Sign up with Google
+    </a>
+    <a
+			href="{% provider_login_url 'line' %}"
+      class="w-full py-3 border border-neutral-400 rounded-full flex items-center justify-center hover:bg-neutral-50 focus:bg-blue-100 transition-transform transform hover:scale-105 duration-300"
+    >
+      <img
+        src="https://img.icons8.com/color/48/000000/line-me.png"
+        alt="Line"
+        class="w-[24px] h-[24px] mr-2 object-cover"
+      />
+      Sign up with LINE
+    </a>
+    <p class="text-sm mt-4">
+      Already have an account?
+      <a href="{% url "accounts:login" %}" class="text-blue-600 hover:underline"> Sign in </a>
+    </p>
+  </div>
+</div>
+
+{% endblock content %}
