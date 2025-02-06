@@ -1,0 +1,35 @@
+<div class="w-full bg-gradient-to-r from-neutral-50 to-neutral-100 rounded-lg backdrop-blur-md">
+  <nav class="flex justify-between items-center py-4 px-6">
+    <div class="flex items-center">
+      <h1 class="font-title text-blue-950 text-xl ml-4">Django-template</h1>
+    </div>
+    <ul class="flex-1 flex justify-center gap-8 text-neutral-950 font-medium">
+      <li
+        class="hover:scale-110 transition-transform duration-300 cursor-pointer"
+      >
+        <a href="{% url "pages:home" %}">Home</a>
+      </li>
+      <li
+        class="hover:scale-110 transition-transform duration-300 cursor-pointer"
+      >
+        About
+      </li>
+      <li
+        class="hover:scale-110 transition-transform duration-300 cursor-pointer"
+      >
+        Services
+      </li>
+      <li
+        class="hover:scale-110 transition-transform duration-300 cursor-pointer"
+      >
+        Contact
+      </li>
+    </ul>
+    <a
+			href="{% url "accounts:login" %}"
+      class="bg-blue-500 text-blue-50 px-6 py-2 rounded-md hover:bg-blue-600 transition-colors duration-300"
+    >
+      Login
+    </a>
+  </nav>
+</div>
