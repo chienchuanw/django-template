@@ -13,22 +13,28 @@
   >
     Register
   </h1>
-  <form class="space-y-6">
+  <form method="post" class="space-y-6">
+		{% csrf_token %}
+		
+		<!-- Username -->
     <div class="space-y-1">
-      <label htmlFor="fullname" class="block text-lg font-medium">
-        Full Name
+      <label htmlFor="id_username" class="block text-lg font-medium">
+        Username
       </label>
+
       <div
         class="relative flex items-center border border-blue-300 bg-white rounded-md focus-within:ring-4 focus-within:ring-blue-300/50 focus-within:border-blue-500 transition-all duration-300"
       >
-        <input
-          id="fullname"
-          type="text"
-          class="w-full py-3 px-3 focus:outline-none focus:ring-0 focus:border-none rounded-md"
-          placeholder="Your full name"
-        />
+				{{ form.username }}
       </div>
+			{% if form.username.errors %}
+				{% for error in form.username.errors %}
+					<p class="register-validate">{{ error }}</p>
+				{% endfor %}
+			{% endif %}
     </div>
+
+		<!-- Email -->
     <div class="space-y-1">
       <label htmlFor="email" class="block text-lg font-medium">
         Email
@@ -36,14 +42,16 @@
       <div
         class="relative flex items-center border border-blue-300 bg-white rounded-md focus-within:ring-4 focus-within:ring-blue-300/50 focus-within:border-blue-500 transition-all duration-300"
       >
-        <input
-          id="email"
-          type="email"
-          class="w-full py-3 px-3 focus:outline-none focus:ring-0 focus:border-none rounded-md"
-          placeholder="Your email"
-        />
+				{{ form.email }}
       </div>
+			{% if form.email.errors %}
+				{% for error in form.email.errors %}
+					<p class="register-validate">{{ error }}</p>				
+				{% endfor %}
+			{% endif %}
     </div>
+
+		<!-- Password1 -->
     <div class="space-y-1">
       <label htmlFor="password" class="block text-lg font-medium">
         Password
@@ -51,14 +59,16 @@
       <div
         class="relative flex items-center border border-blue-300 bg-white rounded-md focus-within:ring-4 focus-within:ring-blue-300/50 focus-within:border-blue-500 transition-all duration-300"
       >
-        <input
-          id="password"
-          type="password"
-          class="w-full py-3 px-3 focus:outline-none focus:ring-0 focus:border-none rounded-md"
-          placeholder="Create password"
-        />
+				{{ form.password1 }}
       </div>
+			{% if form.password1.errors %}
+				{% for error in form.password1.errors %}
+					<p class="register-validate">{{ error }}</p>
+				{% endfor %}
+			{% endif %}
     </div>
+
+		<!-- Password2 for confirmation -->
     <div class="space-y-1">
       <label htmlFor="confirm-password" class="block text-lg font-medium">
         Confirm Password
@@ -66,19 +76,20 @@
       <div
         class="relative flex items-center border border-blue-300 bg-white rounded-md focus-within:ring-4 focus-within:ring-blue-300/50 focus-within:border-blue-500 transition-all duration-300"
       >
-        <input
-          id="confirm-password"
-          type="password"
-          class="w-full py-3 px-3 focus:outline-none focus:ring-0 focus:border-none rounded-md"
-          placeholder="Confirm password"
-        />
+				{{ form.password2 }}
       </div>
+			{% if form.password2.errors %}
+				{% for error in form.password2.errors %}
+					<p class="register-validate">{{ error }}</p>
+				{% endfor %}
+			{% endif %}
     </div>
     <div class="flex items-center space-x-2">
       <input
         type="checkbox"
         id="terms"
         class="w-4 h-4 rounded border-blue-300 text-blue-600 focus:ring-blue-500"
+				required
       />
       <label htmlFor="terms" class="text-sm">
         I agree to the Terms of Service and Privacy Policy
