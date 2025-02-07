@@ -9,7 +9,7 @@ class HomePageTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_home_page_reverse_url(self):
-        response = self.client.get(reverse("pages:home"))
+        response = self.client.get(reverse("home"))
         self.assertEqual(response.status_code, 200)
 
     def test_home_page_contains_correct_html(self):
