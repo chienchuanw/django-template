@@ -25,11 +25,20 @@
         Contact
       </li>
     </ul>
+		{% if user.is_authenticated %}
+		<form action="{% url "accounts:logout" %}" method="post">
+			{% csrf_token %}
+			<button type="submit" class="login-button">
+				Logout
+			</button>
+		</form>
+		{% else %}
     <a
 			href="{% url "accounts:login" %}"
-      class="bg-blue-500 text-blue-50 px-6 py-2 rounded-md hover:bg-blue-600 transition-colors duration-300"
+      class="login-button"
     >
       Login
     </a>
+		{% endif %}
   </nav>
 </div>
