@@ -20,3 +20,5 @@ superuser:
 styles:
 	npx tailwindcss -i ./src/styles/input.css -o ./static/styles/output.css --watch
 
+shell:
+	poetry run python manage.py shell
