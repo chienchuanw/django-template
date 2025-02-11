@@ -1,6 +1,7 @@
 from pathlib import Path
 import environ
 import os
+from django.urls import reverse_lazy
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -163,4 +164,6 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 SOCIALACCOUNT_LOGIN_ON_GET = True
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = reverse_lazy("home")
+LOGOUT_REDIRECT_URL = reverse_lazy("accounts:login")
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 7

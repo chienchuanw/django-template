@@ -4,7 +4,8 @@ from django.views.generic.edit import FormView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from .forms import CustomUserCreationForm
-from django.contrib.auth import login as django_login
+from django.contrib.auth import login
+from django.contrib.auth.views import LoginView, LogoutView
 
 
 def register(request: HttpRequest) -> HttpResponse:
@@ -23,9 +24,32 @@ class UserRegisterView(FormView):
         user.backend = "django.contrib.auth.backends.ModelBackend"
 
         # Auto-login after register successfully
-        django_login(self.request, user, backend=user.backend)
+        login(self.request, user, backend=user.backend)
         return redirect(self.get_success_url())
 
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect("home")
+        return super().dispatch(request, *args, **kwargs)
 
-def login(request: HttpRequest) -> HttpResponse:
-    return render(request, "accounts/login.html")
+
+class UserLoginView(LoginView):
+    template_name = "accounts/login.html"
+    redirect_authenticated_user = True
+
+    def form_valid(self, form):
+        # Remember account for 30 days
+        remember_me = self.request.POST.get("remember_me")
+        response = super().form_valid(form)
+
+        # Default is 7 days which is set in SESSION_COOKIE_AGE in settings.py
+        if remember_me:
+            self.request.session.set_expiry(60 * 60 * 24 * 30)
+
+        return response
+
+
+class UserLogoutView(LogoutView):
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+        return response
