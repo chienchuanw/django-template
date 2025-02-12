@@ -1,0 +1,94 @@
+{% extends "shared/base.html" %} 
+
+{% block title %}Edit Profile{% endblock title %} 
+
+{% block content %}
+<form
+	method="post"
+  class="w-1/4 mx-auto shadow-lg rounded-lg bg-white p-6 relative min-h-[500px]"
+>
+  <button
+    class="absolute top-4 right-4 bg-blue-500 text-white w-[40px] h-[40px] rounded-full flex items-center justify-center text-sm"
+  >
+    save
+  </button>
+	{% csrf_token %}
+  <div class="flex flex-col items-center gap-4 text-center">
+    <div
+      class="w-[100px] h-[100px] rounded-full bg-neutral-200 flex items-center justify-center"
+    >
+      <img
+        class="w-[100px] h-[100px] rounded-full object-cover"
+        src="https://tools-api.webcrumbs.org/image-placeholder/100/100/avatar/1"
+        alt="Avatar"
+      />
+    </div>
+
+    <a href="#" class="text-blue-500 mt-2 underline">Change Photo</a>
+
+    <div class="w-full mt-4">
+      <div class="mb-2">
+        <label for="id_first_name">First Name</label>
+        <input
+          type="text"
+					name="first_name"
+          id="id_first_name"
+          class="register-input"
+          value="{{ user.first_name }}"
+        />
+      </div>
+      <div class="mb-2">
+        <label for="id_last_name">Last Name</label>
+        <input
+          type="text"
+					name="last_name"
+          id="id_last_name"
+          class="register-input"
+          value="{{ user.last_name }}"
+        />
+      </div>
+      <div class="mb-2">
+        <label for="id_username">Username</label>
+        <input
+          type="text"
+					name="username"
+          id="id_username"
+          class="register-input"
+          value="{{ user.username }}"
+        />
+      </div>
+      <div class="mb-2">
+        <label for="id_email">Email</label>
+        <input
+          type="email"
+					name="email"
+          id="id_email"
+          class="register-input"
+          value="{{ user.email }}"
+        />
+      </div>
+      <div class="mb-2">
+        <label for="id_birthday">Birthday</label>
+        <input
+          type="date"
+					name="birthday"
+          id="id_birthday"
+          class="register-input"
+          value="{{ user.birthday }}"
+        />
+      </div>
+      <div class="mb-2">
+        <label for="id_mobile">Mobile</label>
+        <input
+          type="text"
+					name="mobile"
+          id="id_mobile"
+          class="register-input"
+          value="{{ user.mobile }}"
+        />
+      </div>
+    </div>
+  </div>
+</form>
+
+{% endblock content %}
