@@ -42,11 +42,11 @@
       </div>
       <div class="mb-2">
 				<span>Birthday</span>
-				<div class="input-readonly">{{ user.birthday }}</div>
+				<div class="input-readonly">{% if profile.birthday %}{{ profile.birthday }}{% endif %}</div>
       </div>
       <div class="mb-2">
 				<span>Mobile</span>
-				<div class="input-readonly">{{ user.mobile }}</div>
+				<div class="input-readonly">{% if profile.mobile %}{{ profile.mobile }}{% endif %}</div>
       </div>	
     </div>
   </div>

@@ -74,7 +74,7 @@
 					name="birthday"
           id="id_birthday"
           class="register-input"
-          value="{{ user.birthday }}"
+          value="{{ user.profile.birthday|date:"Y-m-d" }}"
         />
       </div>
       <div class="mb-2">
@@ -84,7 +84,7 @@
 					name="mobile"
           id="id_mobile"
           class="register-input"
-          value="{{ user.mobile }}"
+          value="{{ user.profile.mobile }}"
         />
       </div>
     </div>

@@ -4,11 +4,12 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import FormView, UpdateView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, UserProfileForm
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.models import User
+from accounts.models import UserProfile
 
 
 def register(request: HttpRequest) -> HttpResponse:
@@ -69,14 +70,20 @@ class UserProfileView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         user = self.request.user
         context["user"] = user
+        context["profile"] = user.profile
         return context
 
 
 class UserProfileEditView(LoginRequiredMixin, UpdateView):
     template_name = "accounts/edit.html"
-    model = User
-    fields = ["email", "first_name", "last_name", "username"]
+    model = UserProfile
+    form_class = UserProfileForm
     success_url = reverse_lazy("accounts:profile")
 
     def get_object(self, queryset=None):
-        return self.request.user
+        return self.request.user.profile
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs
