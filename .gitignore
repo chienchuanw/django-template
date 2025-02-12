@@ -14,3 +14,10 @@ static/styles/output.css
 
 # Frontend
 node_modules/
+
+# Data
+data/input/*
+data/output/*
+data/temp/*
+!data/input/.keep
+!data/temp/.keep
