@@ -42,7 +42,7 @@
       </div>
       <div class="mb-2">
 				<span>Birthday</span>
-				<div class="input-readonly">{% if profile.birthday %}{{ profile.birthday }}{% endif %}</div>
+				<div class="input-readonly">{% if profile.birthday %}{{ profile.birthday|date:"Y-m-d" }}{% endif %}</div>
       </div>
       <div class="mb-2">
 				<span>Mobile</span>
