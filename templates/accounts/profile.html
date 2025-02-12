@@ -1,0 +1,64 @@
+{% extends "shared/base.html" %} 
+
+
+{% block title %}Profile{% endblock title %} 
+{% block content %}
+<div
+  class="w-1/4 mx-auto shadow-lg rounded-lg bg-white p-6 relative min-h-[500px]"
+>
+  <button
+    class="absolute top-4 right-4 bg-blue-500 text-white w-[40px] h-[40px] rounded-full flex items-center justify-center text-sm"
+  >
+    <a href="{% url "accounts:edit" %}">edit</a>
+  </button>
+
+  <div class="flex flex-col items-center gap-4 text-center">
+    <div
+      class="w-[100px] h-[100px] rounded-full bg-neutral-200 flex items-center justify-center"
+    >
+      <img
+        class="w-[100px] h-[100px] rounded-full object-cover"
+        src="https://tools-api.webcrumbs.org/image-placeholder/100/100/avatar/1"
+        alt="Avatar"
+      />
+    </div>
+
+    <div class="w-full mt-4">
+			<div class="mb-2">
+				<span class="left">First Name</span>
+				<div class="input-readonly">{{ user.first_name }}</div>
+      </div>		
+			<div class="mb-2">
+				<span>Last Name</span>
+				<div class="input-readonly">{{ user.last_name }}</div>
+      </div>		
+      <div class="mb-2">
+				<span>Username</span>
+				<div class="input-readonly">{{ user.username }}</div>
+			</div>	
+      <div class="mb-2">
+				<span>Email</span>
+				<div class="input-readonly">{{ user.email }}</div>
+      </div>
+      <div class="mb-2">
+				<span>Birthday</span>
+				<div class="input-readonly">{{ user.birthday }}</div>
+      </div>
+      <div class="mb-2">
+				<span>Mobile</span>
+				<div class="input-readonly">{{ user.mobile }}</div>
+      </div>	
+    </div>
+  </div>
+
+  <div class="flex flex-col justify-center mt-8 gap-y-2">
+    <a class="bg-blue-500 text-white px-6 py-2 rounded-md text-center">
+      Link to Google
+    </a>
+    <a class="bg-blue-500 text-white px-6 py-2 rounded-md text-center">
+      Link to LINE
+    </a>
+  </div>
+</div>
+
+{% endblock content %}

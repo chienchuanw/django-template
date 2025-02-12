@@ -1,11 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
-from django.views.generic.edit import FormView
+from django.views.generic import TemplateView
+from django.views.generic.edit import FormView, UpdateView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from .forms import CustomUserCreationForm
 from django.contrib.auth import login
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.models import User
 
 
 def register(request: HttpRequest) -> HttpResponse:
@@ -53,3 +56,27 @@ class UserLogoutView(LogoutView):
     def dispatch(self, request, *args, **kwargs):
         response = super().dispatch(request, *args, **kwargs)
         return response
+
+
+def profile(request):
+    return render(request, "accounts/profile.html")
+
+
+class UserProfileView(LoginRequiredMixin, TemplateView):
+    template_name = "accounts/profile.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        context["user"] = user
+        return context
+
+
+class UserProfileEditView(LoginRequiredMixin, UpdateView):
+    template_name = "accounts/edit.html"
+    model = User
+    fields = ["email", "first_name", "last_name", "username"]
+    success_url = reverse_lazy("accounts:profile")
+
+    def get_object(self, queryset=None):
+        return self.request.user
