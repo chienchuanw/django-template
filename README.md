@@ -23,3 +23,7 @@
 2. `$ python manage.py setup_periodic_task --int <minutes>` to create a scheduled task of updating CSV with given minutes. Default update interval is 3 minutes.
 3. `$ make celery-worker` to start celery worker for launch the tasks from tasks.py.
 4. `$ make celery-beat` to enable scheduled task which will auto-run the task base on its interval.
+
+Additionally, if you want to change the interval of an existing schedule task:
+
+1. `$ python manage.py update_periodic_task --name <task name> --int <new interval>`

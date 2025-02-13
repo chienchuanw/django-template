@@ -19,8 +19,24 @@ class ParkingIndexView(TemplateView):
         with open(csv_file_path, newline="", encoding="utf-8-sig") as csvfile:
             reader = csv.reader(csvfile)
             headers = next(reader)
-            parking_data = list(row for row in reader)
+            data_list = list(row for row in reader)
 
+        # re-assemble data from CSV
+        parking_data = [
+            {
+                "name": "test",
+                "id": int(parking_id),
+                "status": (
+                    "Error"
+                    if int(remain) == -9
+                    else "None" if int(remain) == 0 else "Available"
+                ),
+                "remain": int(remain) if int(remain) > 9 else 0,
+            }
+            for parking_id, remain in data_list
+        ]
+
+        # send to html as context
         context["headers"] = headers
         context["parking_data"] = parking_data
 
