@@ -36,11 +36,13 @@ INSTALLED_APPS = [
 INSTALLED_APPS += [
     "pages",
     "accounts",
+    "parkings",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.line",
     "allauth.socialaccount.providers.google",
+    "django_celery_beat",
 ]
 
 MIDDLEWARE = [
@@ -167,3 +169,9 @@ SOCIALACCOUNT_LOGIN_ON_GET = True
 LOGIN_REDIRECT_URL = reverse_lazy("home")
 LOGOUT_REDIRECT_URL = reverse_lazy("accounts:login")
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 7
+
+
+# Celery
+CELERY_BROKER_URL = "redis://localhost:6379/0"
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"

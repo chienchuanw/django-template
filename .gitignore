@@ -21,3 +21,6 @@ data/output/*
 data/temp/*
 !data/input/.keep
 !data/temp/.keep
+
+# Celery
+celerybeat-schedule

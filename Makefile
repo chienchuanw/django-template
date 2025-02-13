@@ -22,3 +22,9 @@ styles:
 
 shell:
 	poetry run python manage.py shell
+
+celery-worker:
+	celery -A core worker --loglevel=info 
+
+celery-beat:
+	celery -A core beat --loglevel=info --scheduler django_celery_beat.schedulers:DatabaseScheduler

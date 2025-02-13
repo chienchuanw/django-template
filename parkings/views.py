@@ -1,7 +1,6 @@
+import csv, os
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
-import csv
-import os
 from django.conf import settings
 
 
