@@ -4,6 +4,7 @@ from django.views.generic.detail import DetailView
 from django.conf import settings
 from typing import Any
 from parkings.models import ParkingLot
+import requests
 
 
 class ParkingIndexView(TemplateView):
@@ -60,6 +61,9 @@ class ParkingDetailView(DetailView):
     model = ParkingLot
 
     def __get_current_remain(self, id):
+        """
+        Get remaining parking space from CSV file
+        """
         CSV_FILE_PATH = os.path.join(
             settings.BASE_DIR, "data/input/新北市公有路外停車場即時賸餘車位數.csv"
         )
@@ -77,6 +81,29 @@ class ParkingDetailView(DetailView):
         except Exception as e:
             print(f"An error occurs during loading CSV: {e}")
 
+    def __get_coordinate(self, address):
+        """
+        Use Google Geocoding API to get corresponding coordinates
+        """
+        api_key = settings.GOOGLE_MAPS_API_KEY
+        base_url = "https://maps.googleapis.com/maps/api/geocode/json"
+        params = {"address": address, "key": api_key}
+
+        try:
+            response = requests.get(base_url, params=params)
+            data = response.json()
+
+            if data["status"] == "OK":
+                location = data["results"][0]["geometry"]["location"]
+                return location["lat"], location["lng"]
+            else:
+                print(f"Geocoding API returns error: {data["status"]}")
+                return 0.0, 0.0
+
+        except Exception as e:
+            print(f"Geocoding occurs error: {e}")
+            return 0.0, 0.0
+
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
 
@@ -85,13 +112,19 @@ class ParkingDetailView(DetailView):
         remain = self.__get_current_remain(id)
 
         # Get service_time and format text
-        parking_lot = self.get_object()
+        parking_lot: ParkingLot = self.get_object()
         pay_ex = parking_lot.pay_ex.replace(";", "<br>") if parking_lot.pay_ex else ""
+
+        # Get lat and lng for Google Maps
+        lat, lng = self.__get_coordinate(parking_lot.address)
 
         context.update(
             {
                 "remain": remain,
                 "pay_ex": pay_ex,
+                "lat": lat,
+                "lng": lng,
+                "google_maps_api_key": settings.GOOGLE_MAPS_API_KEY,
             }
         )
         return context

@@ -1,6 +1,5 @@
 {% extends "shared/base.html" %} 
 {% block title %}Parking Detail{% endblock title %} 
-
 {% block content %}
 <div class="w-[1200px] mx-auto bg-white rounded-xl shadow-lg">
   <div class="p-6 grid grid-cols-3 gap-6">
@@ -35,22 +34,22 @@
       <div class="bg-white rounded-xl shadow-lg p-4">
         <h2 class="text-xl font-semibold mb-4">{{ object.name }}</h2>
         <div class="space-y-4">
-          <div
-            class="p-4 border rounded-lg hover:shadow-md transition"
-          >
+          <div class="p-4 border rounded-lg hover:shadow-md transition">
             <h3 class="font-medium group-hover:text-blue-600 transition mb-2">
               {{ object.address }}
             </h3>
             <div class="space-y-1">
-							<p class="text-sm text-gray-600">{{ object.service_time }}</p>
-							<p class="text-sm text-gray-600">{{ pay_ex|safe }}</p>
-						</div>
+              <p class="text-sm text-gray-600">{{ object.service_time }}</p>
+              <p class="text-sm text-gray-600">{{ pay_ex|safe }}</p>
+            </div>
             <div class="flex justify-between items-center mt-6">
-							{% if remain > 0 %}
-              <span class="text-sm text-green-500">Available: {{ remain }} slots</span>
-							{% else %}
+              {% if remain > 0 %}
+              <span class="text-sm text-green-500"
+                >Available: {{ remain }} slots</span
+              >
+              {% else %}
               <span class="text-sm text-red-500">Not Available</span>
-							{% endif %}
+              {% endif %}
               <button
                 class="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transform hover:scale-105 transition-all duration-300 shadow-md group-hover:shadow-lg"
               >
@@ -67,7 +66,9 @@
 
   <div class="p-6 border-t">
     <div class="flex justify-between items-center">
-      <p class="text-sm text-gray-600">Last updated: 5 minutes ago (This is fake)</p>
+      <p class="text-sm text-gray-600">
+        Last updated: 5 minutes ago (This is fake)
+      </p>
       <div class="flex gap-4">
         <button
           class="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transform hover:scale-105 transition"
@@ -85,4 +86,33 @@
     </div>
   </div>
 </div>
+<!-- Google Maps -->
+<script
+  async
+  defer
+  src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap"
+></script>
+
+<script>
+  function initMap() {
+    const lat = {{ lat|default:0 }};
+    const lng = {{ lng|default:0 }};
+
+    if (lat === 0 || lng === 0) {
+      console.error("Invalid coordinates, cannot load map.");
+      return;
+    }
+
+    const map = new google.maps.Map(document.getElementById("map"), {
+      center: { lat: lat, lng: lng },
+      zoom: 16,
+    });
+
+    new google.maps.Marker({
+      position: { lat: lat, lng: lng },
+      map: map,
+      title: "{{ object.name }}",
+    });
+  }
+</script>
 {% endblock content %}
