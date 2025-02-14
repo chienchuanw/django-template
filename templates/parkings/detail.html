@@ -1,11 +1,88 @@
-{% extends "shared/base.html" %}
-
-{% block title %}Parking Detail{% endblock title %}
+{% extends "shared/base.html" %} 
+{% block title %}Parking Detail{% endblock title %} 
 
 {% block content %}
-<h1 class="text-red-500">{{ header }}</h1>
-<div>
-	{{ content }}
-</div>
+<div class="w-[1200px] mx-auto bg-white rounded-xl shadow-lg">
+  <div class="p-6 grid grid-cols-3 gap-6">
+    <section class="col-span-2 h-[600px] rounded-xl border relative">
+      <div class="absolute inset-0 bg-gray-200 rounded-xl overflow-hidden">
+        <div class="w-full h-full" id="map">
+          <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+          />
+          <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css"
+          />
+        </div>
+      </div>
+      <div class="absolute bottom-4 right-4 flex gap-2">
+        <button
+          class="p-2 bg-white rounded-full shadow hover:shadow-lg transform hover:scale-105 transition"
+        >
+          <span class="material-symbols-outlined">my_location</span>
+        </button>
+        <button
+          class="p-2 bg-white rounded-full shadow hover:shadow-lg transform hover:scale-105 transition"
+        >
+          <span class="material-symbols-outlined">zoom_in</span>
+        </button>
+      </div>
+    </section>
 
+    <aside class="space-y-6">
+      <div class="bg-white rounded-xl shadow-lg p-4">
+        <h2 class="text-xl font-semibold mb-4">{{ object.name }}</h2>
+        <div class="space-y-4">
+          <div
+            class="p-4 border rounded-lg hover:shadow-md transition"
+          >
+            <h3 class="font-medium group-hover:text-blue-600 transition mb-2">
+              {{ object.address }}
+            </h3>
+            <div class="space-y-1">
+							<p class="text-sm text-gray-600">{{ object.service_time }}</p>
+							<p class="text-sm text-gray-600">{{ pay_ex|safe }}</p>
+						</div>
+            <div class="flex justify-between items-center mt-6">
+							{% if remain > 0 %}
+              <span class="text-sm text-green-500">Available: {{ remain }} slots</span>
+							{% else %}
+              <span class="text-sm text-red-500">Not Available</span>
+							{% endif %}
+              <button
+                class="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transform hover:scale-105 transition-all duration-300 shadow-md group-hover:shadow-lg"
+              >
+                <div class="flex flex-col items-start">
+                  <span class="text-sm font-semibold">Get Directions</span>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="p-6 border-t">
+    <div class="flex justify-between items-center">
+      <p class="text-sm text-gray-600">Last updated: 5 minutes ago (This is fake)</p>
+      <div class="flex gap-4">
+        <button
+          class="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transform hover:scale-105 transition"
+        >
+          <span class="material-symbols-outlined">share</span>
+          Share Location
+        </button>
+        <button
+          class="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 transform hover:scale-105 transition"
+        >
+          <span class="material-symbols-outlined">refresh</span>
+          Refresh
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock content %}

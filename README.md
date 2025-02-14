@@ -8,6 +8,7 @@
     - [If an User instance doesn't have a UserProfile, how to link one?](#if-an-user-instance-doesnt-have-a-userprofile-how-to-link-one)
   - [Parking related](#parking-related)
     - [How to update CSV file automatically using Celery?](#how-to-update-csv-file-automatically-using-celery)
+    - [How to import parking data from a CSV with provided API?](#how-to-import-parking-data-from-a-csv-with-provided-api)
 
 ## Account related
 
@@ -27,3 +28,9 @@
 Additionally, if you want to change the interval of an existing schedule task:
 
 1. `$ python manage.py update_periodic_task --name <task name> --int <new interval>`
+
+### How to import parking data from a CSV with provided API?
+
+1. Make sure there is CSV file in `data/input`.
+2. `$ make migrate`
+3. `$ python manage.py import_parkinglots`
