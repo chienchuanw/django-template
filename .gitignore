@@ -19,8 +19,11 @@ node_modules/
 data/input/*
 data/output/*
 data/temp/*
+data/backup/*
 !data/input/.keep
+!data/output/.keep
 !data/temp/.keep
+!data/backup/.keep
 
 # Celery
 celerybeat-schedule
