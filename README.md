@@ -4,11 +4,16 @@
 
 - [README.md](#readmemd)
   - [Index](#index)
+  - [How to start this project](#how-to-start-this-project)
   - [Account related](#account-related)
     - [If an User instance doesn't have a UserProfile, how to link one?](#if-an-user-instance-doesnt-have-a-userprofile-how-to-link-one)
   - [Parking related](#parking-related)
     - [How to update CSV file automatically using Celery?](#how-to-update-csv-file-automatically-using-celery)
     - [How to import parking data from a CSV with provided API?](#how-to-import-parking-data-from-a-csv-with-provided-api)
+
+## How to start this project
+
+1. Remember to run `$ npm run build` to generate `static/output.js` file.
 
 ## Account related
 

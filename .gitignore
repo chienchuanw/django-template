@@ -27,3 +27,6 @@ data/backup/*
 
 # Celery
 celerybeat-schedule
+
+# Webpack
+output.js.LICENSE.txt
