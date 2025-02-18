@@ -23,3 +23,13 @@ For further explanation, read [this](https://stackoverflow.com/questions/4691339
 For the Google Maps Javascript API v3 the keys **must** be public on your page.
 
 Read [here](https://stackoverflow.com/questions/39625587/how-do-i-securely-use-google-api-keys) to know more.
+
+### How to resolve "Google Maps JavaScript API has been loaded directly without loading=async"?
+
+Add `"loading=async"` into your Google Maps script tag.
+
+```html
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&loading=async&callback=initMap&v=weekly"></script>
+```
+
+For further information, read [this](https://github.com/Tintef/react-google-places-autocomplete/issues/342)

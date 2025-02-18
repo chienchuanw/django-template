@@ -8,12 +8,7 @@
     <link href="{% static "styles/output.css" %}" rel="stylesheet" />
     <title>Django | {% block title %}{% endblock title %}</title>
     <!-- Google Maps -->
-    <script
-      async
-      defer
-      src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap"
-    ></script>
-    <script src="{% static 'scripts/output.js' %}" defer></script>
+    <script src="{% static 'scripts/output.js' %}" type="module"></script>
   </head>
   <body class="flex flex-col min-h-screen gap-y-10">
     {% include "shared/header.html" %}

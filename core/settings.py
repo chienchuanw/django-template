@@ -36,6 +36,7 @@ INSTALLED_APPS = [
 INSTALLED_APPS += [
     "pages",
     "accounts",
+    "apis",
     "parkings",
     "allauth",
     "allauth.account",
@@ -178,3 +179,4 @@ CELERY_TASK_SERIALIZER = "json"
 
 # Google Maps
 GOOGLE_MAPS_API_KEY = env("GOOGLE_MAPS_API_KEY")
+GOOGLE_MAPS_ID = env("GOOGLE_MAPS_ID")
