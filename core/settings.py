@@ -2,6 +2,7 @@ from pathlib import Path
 import environ
 import os
 from django.urls import reverse_lazy
+from rich.logging import RichHandler
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -174,17 +175,24 @@ LOGGING = {
             "level": "DEBUG",
             "class": "logging.FileHandler",
             "filename": "logs/db_queries.log",
-            "formatter": "sql",
+            "formatter": "verbose",
         },
         "console": {
             "level": "DEBUG",
-            "class": "logging.StreamHandler",
-            "formatter": "sql",
+            "class": "rich.logging.RichHandler",
+            "formatter": "rich",
+            "rich_tracebacks": True,
+            "tracebacks_show_locals": True,
         },
     },
     "formatters": {
-        "sql": {
+        "verbose": {
             "format": "{asctime} - {levelname} - {name} - {message} (Time: {relativeCreated:.2f}ms)",
+            "style": "{",
+        },
+        "rich": {
+            "datefmt": "%Y-%m-%d %H:%M:%S",
+            "format": "{message}\n(Time: {relativeCreated:.0f} ms)",
             "style": "{",
         },
     },
@@ -193,6 +201,11 @@ LOGGING = {
         "level": "WARNING",
     },
     "loggers": {
+        "django": {
+            "handlers": ["file"],
+            "level": "DEBUG",
+            "propagate": False,
+        },
         "django.db.backends": {
             "handlers": ["file", "console"],
             "level": env("DJANGO_LOG_LEVEL", default="DEBUG"),
