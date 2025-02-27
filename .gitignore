@@ -30,3 +30,7 @@ celerybeat-schedule
 
 # Webpack
 output.js.LICENSE.txt
+
+# Logs
+logs/*
+!logs/.keep

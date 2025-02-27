@@ -166,6 +166,41 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "file": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": "logs/db_queries.log",
+            "formatter": "sql",
+        },
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "sql",
+        },
+    },
+    "formatters": {
+        "sql": {
+            "format": "{asctime} - {levelname} - {name} - {message} (Time: {relativeCreated:.2f}ms)",
+            "style": "{",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "WARNING",
+    },
+    "loggers": {
+        "django.db.backends": {
+            "handlers": ["file", "console"],
+            "level": env("DJANGO_LOG_LEVEL", default="DEBUG"),
+            "propagate": False,
+        },
+    },
+}
+
 SOCIALACCOUNT_LOGIN_ON_GET = True
 LOGIN_REDIRECT_URL = reverse_lazy("home")
 LOGOUT_REDIRECT_URL = reverse_lazy("accounts:login")
