@@ -228,3 +228,19 @@ CELERY_TASK_SERIALIZER = "json"
 # Google Maps
 GOOGLE_MAPS_API_KEY = env("GOOGLE_MAPS_API_KEY")
 GOOGLE_MAPS_ID = env("GOOGLE_MAPS_ID")
+
+# Postmark
+EMAIL_BACKEND = "anymail.backends.postmark.EmailBackend"
+# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+ANYMAIL = {
+    "POSTMARK_SERVER_TOKEN": env("POSTMARK_SERVER_TOKEN"),
+    "DEBUG_API_REQUESTS": env("POSTMARK_DEBUG", default=False),
+}
+
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
+SERVER_EMAIL = env("SERVER_EMAIL")
+EMAIL_SUBJECT_PREFIX = "[Django Password Reset]"
+
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
