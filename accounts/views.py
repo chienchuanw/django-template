@@ -7,13 +7,16 @@ from django.urls import reverse_lazy
 from .forms import CustomUserCreationForm, UserProfileForm
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import (
+    LoginView,
+    LogoutView,
+    PasswordResetView,
+    PasswordResetDoneView,
+    PasswordResetConfirmView,
+    PasswordResetCompleteView,
+)
 from django.contrib.auth.models import User
 from accounts.models import UserProfile
-
-
-def register(request: HttpRequest) -> HttpResponse:
-    return render(request, "accounts/register.html")
 
 
 class UserRegisterView(FormView):
@@ -59,10 +62,6 @@ class UserLogoutView(LogoutView):
         return response
 
 
-def profile(request):
-    return render(request, "accounts/profile.html")
-
-
 class UserProfileView(LoginRequiredMixin, TemplateView):
     template_name = "accounts/profile.html"
 
@@ -87,3 +86,21 @@ class UserProfileEditView(LoginRequiredMixin, UpdateView):
         kwargs = super().get_form_kwargs()
         kwargs["user"] = self.request.user
         return kwargs
+
+
+class UserPasswordResetView(PasswordResetView):
+    template_name = "accounts/password_reset.html"
+    email_template_name = "accounts/password_reset_email.html"
+    success_url = reverse_lazy("accounts:password_reset_done")
+
+
+class UserPasswordResetDoneView(PasswordResetDoneView):
+    template_name = "accounts/password_reset_done.html"
+
+
+class UserPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = "accounts/password_reset_confirm.html"
+
+
+class UserPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = "accounts/password_reset_complete.html"
